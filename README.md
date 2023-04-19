@@ -1,6 +1,6 @@
 # amulets
 
-![alt text](https://pabloagn.com/wp-content/uploads/2023/04/blog-cover-image.jpg "Blog Cover Image")
+![alt text](https://pabloagn.com/wp-content/uploads/2023/04/amulets-cover-image.jpg "Amulets Cover Image")
 
 ## About
 Unveil the secrets of computational alchemy with Amulets – enchanted exercises designed to bewitch your mind and empower your mastery of computer science, data science, data engineering, probability theory, statistics, and more. Each Amulet harbors a mind-crushing challenge, yet compact enough to be conquered swiftly. Unleash the sorcerer within and distill your skills into pure, intellectual gold.

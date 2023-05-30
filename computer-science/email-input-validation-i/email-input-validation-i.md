@@ -18,12 +18,13 @@ Input validation lets us ensure only properly formed data is entering the workfl
 
 In this Amulet, we'll use regular expressions to match some email addresses.
 
-We'll be using a text file containing email addresses which can be found here []().
+We'll be using a text file containing email addresses which can be found [here](https://raw.githubusercontent.com/ajourneythroughdatascience/amulets/master/computer-science/email-input-validation-i/email_addresses.txt).
 
 ---
 
 # Table of Contents
 - [Problem Statement](#problem-statement)
+- [Requirements](#requirements)
 - [Unlocking the Amulet](#unlocking-the-amulet)
 - [Conclusions](#conclusions)
 - [References](#references)
@@ -34,9 +35,16 @@ We'll be using a text file containing email addresses which can be found here []
 # Problem Statement
 We are presented with a set of email addresses containing different structures. A sample of the complete set can be found below:
 
-##### **Code**
 ```
 dougie.jones@luckyseven.com
+rodion.raskolnikov@stpetersburgphilosophers.ru
+dunya.raskolnikova@moscowfeminists.ru
+semyon.marmeladov@petersburgtragedies.ru
+petr.luzhin@urbanwealth.ru
+arkady.svidrigailov@noblesdelight.ru
+john.tavner@milwaukeemusicians.com
+tom.tavner@unseenheroes.us
+agnes.tavner@quietkeepers.com
 ```
 
 Our job is to match all the valid email addresses, using whichever flavor suits us best. A typical email address is composed of the following parts:
@@ -49,7 +57,7 @@ Our job is to match all the valid email addresses, using whichever flavor suits 
 # Requirements
 - Only the valid addresses must be matched.
 - Each address must be a complete and single match, meaning we must not do partial matches on fragments of the address.
-- Our expression has to be flexible, meaning it has to account for all possible domains as well as top-level domains.
+- Our expression has to be flexible, meaning it has to account for all possible and top-level domains.
 - We must name each part of the email address with its respective section. That means:
 	- Username
 	- Domain name
@@ -71,34 +79,58 @@ The RegEx expression can be written in any flavor using any tool. However, the s
 ---
 
 # Unlocking the Amulet
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Let us break down this problem into groups:
+- The first group should include the entire username, including any dots or other valid separators we might encounter.
+- The second group should include the domain name. This can vary, since there are custom domains, so we cannot just limit our RegEx to the commercial ones, such as google, yahoo, etc.
+- The third group should include the top-level domain, which should also not be limited to known domains, since every day, new ones are created. For example, `.ai` did not exist a few years back.
+
+## 1. The first group
+We can start with specifying a beginning-of-line metacharacter, followed by the capturing group name, and any alphanumerical character along with some special characters:
 
 ##### **Code**
-```Python
-'''
-Created on: Wed Jan 18 20:48:18 2023
-@author: Lucifer Morningstar
-contact: lucifermorningstar@gmail.com
-'''
+```RegEx
+^(?<username>[A-Za-z0-9-_.]+)\@
 ```
 
-##### **Output**
-```
-Created on: Wed Jan 18 20:48:18 2023
-@author: Lucifer Morningstar
-contact: lucifermorningstar@gmail.com
+We can then repeat this using the `+` metacharacter, which matches the previous token between one and unlimited times.
+
+At the end of our group, we include the `@` symbol including an escape character to make sure that it's not taken as a special character.
+
+## 2. The second group
+We can continue with the domain name, which will practically include any alphanumerical character as well as dash `-` and underscore `_` characters. Other special characters are not allowed.
+
+##### **Code**
+```RegEx
+(?<domain_name>[A-Za-z0-9-_]+)
 ```
 
+## 3. The third group
+We can end our expression by including the top-level domain name, and an end-of-line metacharacter. The top-level domain can consist of multiple groups. For example, `.gov.au` is a valid option, and we need to account for that. This can be managed using an optional metacharacter `?` at the end of the second specification.
+
+##### **Code**
+```RegEx
+(?<top_level_domain_name>\.[A-Za-z0-9_]+)(\.[A-Za-z0-9_]+)?$
+```
+
+As we can see, we limit the types of special characters we can use, since top-level domains do not accept characters other than alphanumerical or underscores.
+
+## 4. Composing the complete expression
+In the end, we get something like such:
+
+##### **Code**
+```RegEx
+^(?<username>[A-Za-z0-9-_.]+)\@(?<domain_name>[A-Za-z0-9-_]+)(?<top_level_domain_name>\.[A-Za-z0-9_]+)(\.[A-Za-z0-9_]+)?$
+```
+
+Which, if plotted using a RegEx railroad diagram visualizer (*[Regex-Vis](https://regex-vis.com/) was used for this example*), results in something like such:
 
 
 
 ---
 
 # References
-- [Python Documentation, Built-in Exceptions](https://docs.python.org/3/library/exceptions.html)
-- [Python Documentation, Errors & Exceptions](https://docs.python.org/3/tutorial/errors.html)
-- [Towards Data Science, What happens when you import a Python module?](https://towardsdatascience.com/what-happens-when-you-import-a-python-module-ad6c0efd2640)
-- [Towards Data Science, 3 data structures for faster Python Lists](https://towardsdatascience.com/3-data-structures-for-faster-python-lists-f29a7e9c2f92)
+- [Groups and backreferences, Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Groups_and_backreferences)
+- [GeeksForGeeks, PHP | Regular Expressions](https://www.geeksforgeeks.org/php-regular-expressions/)
 
 ---
 

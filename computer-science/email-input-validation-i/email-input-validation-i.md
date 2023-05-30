@@ -26,10 +26,10 @@ We'll be using a text file containing email addresses which can be found [here](
 - [Problem Statement](#problem-statement)
 - [Requirements](#requirements)
 - [Unlocking the Amulet](#unlocking-the-amulet)
-	- The first group]()
-	- The second group]()
-	- The third group]()
-	- Composing the complete expression]()
+	- [The first group](#1-the-first-group)
+	- [The second group](#2-the-second-group)
+	- [The third group](#3-the-third-group)
+	- [Composing the complete expression](#4-composing-the-complete-expression)
 - [Conclusions](#conclusions)
 - [References](#references)
 - [Copyright](#copyright)
@@ -67,16 +67,19 @@ Our job is to match all the valid email addresses, using whichever flavor suits 
 	- Domain name
 	- Top-level domain name
 
+---
 
 <div class="think-box" align="center">
   <div class="content">
     <img src="https://pabloagn.com/wp-content/uploads/2023/04/Diamond_Icon_White.png" width="70" height="70" class="icon">
     <h2 class="main-header">Tackling Groups</h2>
     <p class="main-description">Tackling group by group and composing a final expression in the end can significantly ease the task.</p>
-    <a href="https://www.merriam-webster.com/dictionary/memory">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Groups_and_backreferences">
       <button class="more-button">Learn More</button></a>
   </div>
 </div>
+
+---
 
 The RegEx expression can be written in any flavor using any tool. However, the solution only includes the expression in PCRE2 flavor (*PHP >=7.3*).
 
@@ -131,6 +134,7 @@ Which, if plotted using a RegEx railroad diagram visualizer (*[Regex-Vis](https:
 <p align="center">
   <img src="https://pabloagn.com/wp-content/uploads/2023/05/M001A037_01.png">
 </p>
+
 ###### *Figure 1: Railroad Diagram for Complete Expression*
 
 ---
